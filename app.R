@@ -20,6 +20,7 @@ library(shinyalert)
 library(readr)
 library(dplyr)
 library(data.table)
+library(DT)
 library(ggplot2)
 library(GenomicRanges)
 
@@ -1025,7 +1026,7 @@ server <- function(input, output, session) {
   observeEvent(tab.counter.3(),{
     insertTab(inputId = "plot.tabs",
               tab = tabPanel("View Data",
-                             dataTableOutput("viewData")),
+                             DTOutput("viewData")),
               target = as.character(target()),
               position = "after",
               select = TRUE)
@@ -2701,7 +2702,7 @@ server <- function(input, output, session) {
     updateNumericInput(session,"subsetSize", value = nrow(selected_data$df))
   }, ignoreNULL = FALSE)
   
-  output$viewData <- renderDataTable(selected_data$df)
+  output$viewData <- renderDT(DT::datatable(selected_data$df, filter = "bottom"))
   #--end of dataset outputs--#
   
   #this is where we put any plots 
