@@ -34,14 +34,14 @@ usats <- m_read_csv('./hg-38.2.7.7.80.10.36.6.final.csv.zip',show_col_types=FALS
 usats.granges <- makeGRangesFromDataFrame(usats)
 
 #list names of static region filters
-regionfilters_static.name <- list.files("./regionfilters_static")
+regionfilters_static.name <- list.files(path="./regionfilters_static")
 
 #list paths to static region filters
 regionfilters_static.path <- lapply(regionfilters_static.name,function(x) paste0("./regionfilters_static/",x))
 
 #list paths to static RE filters
-RE.capture_filters.path <- list.files("./restriction-enzyme_filters/*.hits_capture.csv")
-RE.internal.cuts_filters.path <- list.files("./restriction-enzyme_filters/*.hits_internal.cuts.csv")
+RE.capture_filters.path <- list.files(path="./restriction-enzyme_filters",pattern=".hits_capture.csv",full.names=TRUE)
+RE.internal.cuts_filters.path <- list.files(path="./restriction-enzyme_filters",pattern=".hits_internal.cuts.csv",full.names=TRUE)
 
 #load static RE filters
 RE.capture_filters.list <- lapply(RE.capture_filters.path, function(x) m_read_csv(x,show_col_types=FALSE))
@@ -1172,7 +1172,7 @@ server <- function(input, output, session) {
   output$regionfilter.checkboxes_ui <- renderUI({regionfilter.checkboxes()})
   
   #for each regionfilter (either static or user-imported), use an observeEvent element to check for changes in the regionfilter's corresponding checkbox
-  lapply(1:length(unlist(isolate(name_inputs$history))), function(x){
+  lapply(1:length(unlist(observe({name_inputs$history}))), function(x){
     observeEvent(eval(parse(text = paste0("input$rf_checkbox",x))),{
       #if the user clicks the checkbox, changing its value to "TRUE", then insert a radio button that allows the user to filter microsatellites to exclude microsatellites that overlap with the selected regionfilter in a) the microsatellite body only b) the flank region only or c) either the microsatellite body or the flank region
       if(eval(parse(text = paste0("input$rf_checkbox",x))) == TRUE){
@@ -1201,7 +1201,7 @@ server <- function(input, output, session) {
   })
   
   #for each regionfilter (either static or user-imported), use an observeEvent element to check whether or not the removeUI button has been clicked (i.e. whether or not the checkbox has been unchecked)
-  lapply(1:length(unlist(isolate(name_inputs$history))), function(x){
+  lapply(1:length(unlist(observe({name_inputs$history}))), function(x){
     observeEvent(eval(parse(text = paste0("input$removeUI",x))),{
       #if the checkbox has been unchecked and the "removeUI" button has been triggered, remove all UI elements that are below the unchecked checkbox button
       removeUI(
@@ -1215,7 +1215,7 @@ server <- function(input, output, session) {
   })
   
   #for each regionfilter (either static or user-imported), use an observeEvent element to check for changes in the regionfilter's corresponding radio button
-  lapply(1:length(unlist(isolate(name_inputs$history))), function(x){
+  lapply(1:length(unlist(observe({name_inputs$history}))), function(x){
     observeEvent(eval(parse(text = paste0("input$rf_radio",x))),{
       #if the radio button is changed to anything other than microsatellite, and this insertUI hasn't already been activated (meaning you're not changing from "both" to "flank" or from "flank" to "both"), insert the UI elements below (a set of numeric inputs for determining the bounds in the 5' and 3' flanking regions and a radio button that allows the user to determine whether microsatellites must pass the region filters in both flanks or in only one flank)
       if((eval(parse(text = paste0("input$rf_radio",x))) != "microsatellite") & (eval(parse(text = paste0("input$alreadyActive",x))) == FALSE)){
@@ -1268,7 +1268,7 @@ server <- function(input, output, session) {
   })
   
   #for each regionfilter (either static or user-imported), use an observeEvent element to check whether or not the removeNumeric button has been clicked (i.e. whether or not the radio button has been changed to "microsatellite")
-  lapply(1:length(unlist(isolate(name_inputs$history))), function(x){
+  lapply(1:length(unlist(observe({name_inputs$history}))), function(x){
     observeEvent(eval(parse(text = paste0("input$removeNumeric",x))),{
       #if the radio button has been changed to "microsatellite" and the "removeNumeric" button has been triggered, remove all UI elements that are below the radio button
       removeUI(
@@ -1458,7 +1458,8 @@ server <- function(input, output, session) {
       #note: we will be using a for loop rather than an lapply function here to loop over each file and read and format it as necessary because the formating of each filter may need to meet different specifications, depending on the options the user selects
       for(ii in both_choices){
         #read in file
-        file <- m_read_csv(ii, col.names = c("row.number","seqnames","start","end","width","strand"),show_col_types=FALSE)
+        file <- m_read_csv(ii, col_names = TRUE, show_col_types=FALSE)
+        colnames(file)[1] <- "row.number"
         #make sure there are no duplicate entries in the file
         file <- unique(file[,c("seqnames","start","end")])
         #remove any entries that have "NA" listed for any of the coordinates
