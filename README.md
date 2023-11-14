@@ -12,7 +12,7 @@ STRATIFY requires the following to be installed before running, if not already i
   - After installation, need to run once: `git lfs install`
 - <a href="https://www.r-project.org/">R</a>
 - The following R packages: shiny, shinyjs, shinyWidgets, shinybusy, shinyBS, shinyalert, memoise, dplyr, readr, data.table, ggplot2, GenomicRanges.
-  - These packages can be installed with the command: `install.packages(c("shiny","shinyjs","shinyWidgets","shinybusy","shinyBS","shinyalert","memoise","dplyr","readr","data.table","ggplot2","GenomicRanges"))`
+  - These packages can be installed with the command: `install.packages(c("shiny","shinyjs","shinyWidgets","shinybusy","shinyBS","shinyalert","memoise","dplyr","readr","data.table","DT","ggplot2","GenomicRanges"))`
 
 ## Running STRATIFY
 To download and run STRATIFY, navigate to the desired download directory and run the following from the command line:
