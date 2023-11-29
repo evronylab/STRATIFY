@@ -35,4 +35,4 @@ IMPORTANT NOTE: The following files and directories must be present in the same 
 ## Citing STRATIFY
 <p>If you use STRATIFY, please cite:
 
-Loh CA*, Shields DA*, Schwing A, Evrony GD. High-fidelity, large-scale targeted profiling of microsatellites. bioRxiv 2023.month.day.#####; doi: LINK (2023).</p>
+Loh CA*, Shields DA*, Schwing A, Evrony GD. High-fidelity, large-scale targeted profiling of microsatellites. bioRxiv; doi: [https://doi.org/10.1101/2023.11.28.569106](https://www.biorxiv.org/content/10.1101/2023.11.28.569106v1) (2023).</p>
