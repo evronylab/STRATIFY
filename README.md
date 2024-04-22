@@ -33,15 +33,9 @@ IMPORTANT NOTE: The following files and directories must be present in the same 
 </ol>
 
 ## Running STRATIFY with a different reference genome
-To run STRATIFY with a different reference genome, you must have a .csv.zip file containing the microsatellites + annotations (see <a href="https://github.com/evronylab/usat_annotations_for_STRATIFY">here</a> for more information on how to generate the requisite file from .fasta files for any reference genome). That file must be in the main STRATIFY directory with the app.R file. Additionally, you will need to replace each reference to the default .csv.zip file ("hg-38.2.7.7.80.10.36.6.final.csv.zip") in the app.R file with the new .csv.zip filename. 
+To run STRATIFY with a different reference genome, you must have a .csv.zip file containing the microsatellites + annotations. See [here](other_genomes.md) for more information on how to generate the requisite file from .fasta files for any reference genome. That file must be in the main STRATIFY directory with the app.R file. Additionally, you will need to replace each reference to the default hg38 .csv.zip file ("hg-38.2.7.7.80.10.36.6.final.csv.zip") in the app.R file with the new .csv.zip filename. 
 
-For example, to run STRATIFY with the hg19 reference genome, you can replace the hg-38.2.7.7.80.10.36.6.final.csv.zip file in the main STRATIFY directory with a file with the name "hg-19.2.7.7.80.10.36.6.final.csv.zip." Then, to replace each reference to the hg-38.2.7.7.80.10.36.6.final.csv.zip file with a reference to the new hg-19.2.7.7.80.10.36.6.final.csv.zip file in the app.R file, you can run the following code from the command line:
-
-```bash
-awk '{gsub(/hg-38.2.7.7.80.10.36.6.final.csv.zip/, "hg-19.2.7.7.80.10.36.6.final.csv.zip")}1' app.R > temp.R
-cp temp.R app.R
-rm temp.R
-```
+For example, to run STRATIFY with the hg19 reference genome, you can replace the hg-38.2.7.7.80.10.36.6.final.csv.zip file in the main STRATIFY directory with a file with a new "hg-19.2.7.7.80.10.36.6.final.csv.zip" file. Then, in app.R, replace each reference to the "hg-38.2.7.7.80.10.36.6.final.csv.zip" file with "hg-19.2.7.7.80.10.36.6.final.csv.zip".
 
 ## Citing STRATIFY
 <p>If you use STRATIFY, please cite:
