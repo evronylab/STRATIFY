@@ -40,4 +40,4 @@ For example, to run STRATIFY with the hg19 reference genome, you can replace the
 ## Citing STRATIFY
 <p>If you use STRATIFY, please cite:
 
-Loh CA*, Shields DA*, Schwing A, Evrony GD. High-fidelity, large-scale targeted profiling of microsatellites. bioRxiv; doi: [https://doi.org/10.1101/2023.11.28.569106](https://www.biorxiv.org/content/10.1101/2023.11.28.569106v1) (2023).</p>
+Loh CA*, Shields DA*, Schwing A, Evrony GD. High-fidelity, large-scale targeted profiling of microsatellites. Genome Research, 34, 1008-1026 (2024). [https://genome.cshlp.org/content/34/7/1008](https://genome.cshlp.org/content/34/7/1008).</p>
